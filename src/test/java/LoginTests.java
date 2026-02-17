@@ -31,6 +31,7 @@ public class LoginTests {
         response.then().assertThat().body("id", notNullValue()) //как вернуть ответ с айдишником
                 .and()
                 .statusCode(200);
+        System.out.println(response.body().asString());
     }
     @Test //запрос без логина и пароля
     public void createLoginNotLoginAndPass() {
@@ -48,6 +49,7 @@ public class LoginTests {
         response.then().assertThat().body("message", notNullValue()) //как вернуть ответ с айдишником
                 .and()
                 .statusCode(400);
+        System.out.println(response.body().asString());
     }
     @Test //запрос с несуществующими длгином и паролем 404
     public void doesNotExistLoginAndPass() {
@@ -65,5 +67,6 @@ public class LoginTests {
         response.then().assertThat().body("message", notNullValue()) //как вернуть ответ с айдишником
                 .and()
                 .statusCode(404);
+        System.out.println(response.body().asString());
     }
 }

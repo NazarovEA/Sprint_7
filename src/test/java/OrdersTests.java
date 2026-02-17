@@ -31,5 +31,6 @@ public class OrdersTests {
         response.then().assertThat().body("track", notNullValue()) //как вернуть ответ с айдишником
                 .and()
                 .statusCode(201);
+        System.out.println(response.body().asString());
     }
 }

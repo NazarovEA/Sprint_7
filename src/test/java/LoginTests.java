@@ -1,5 +1,4 @@
 import io.restassured.RestAssured;
-import io.restassured.internal.RequestSpecificationImpl;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,5 +31,22 @@ public class LoginTests {
         response.then().assertThat().body("id", notNullValue()) //как вернуть ответ с айдишником
                 .and()
                 .statusCode(200);
+    }
+    @Test //запрос без логина и пароля
+    public void createLoginNotLoginAndPass() {
+        String json = "{\"login\": \"\",\"password\": \"\"}";
+        Response response =
+                // метод given() помогает сформировать запрос
+                given()
+                        .header("Content-type", "application/json")
+                        // указываем протокол и данные авторизации
+                        .auth().oauth2("lih2TK06FLsu5HQ32PR6XzCsmg0GVPrL2seXkQVprx5FhRzNK8ArtT7u42RhqegQ")
+                        .and()
+                        .body(json)
+                        .when()
+                        .post("/api/v1/courier/login");
+        response.then().assertThat().body("message", notNullValue()) //как вернуть ответ с айдишником
+                .and()
+                .statusCode(400);
     }
 }

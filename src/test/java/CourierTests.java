@@ -15,7 +15,7 @@ public class CourierTests {
 
     @Test //курьера можно создать
     public void createCourier() {
-        String json = "{\"login\": \"nini8\",\"password\": \"12345\",\"firstName\": \"ninini\"}";
+        String json = "{\"login\": \"nini9\",\"password\": \"12345\",\"firstName\": \"ninini\"}";
                 // метод given() помогает сформировать запрос
         given()
                 .header("Content-type", "application/json")
@@ -40,5 +40,19 @@ public class CourierTests {
                 .when()
                 .post("/api/v1/courier")
                 .then().statusCode(409);
+    }
+    @Test //чтобы создать курьера, нужно передать в ручку все обязательные поля.Передаем без логина и пароляц
+    public void createCourierNotLoginAndPassword() {
+        String json = "{\"firstName\": \"ninini\"}";
+        // метод given() помогает сформировать запрос
+        given()
+                .header("Content-type", "application/json")
+                // указываем протокол и данные авторизации
+                .auth().oauth2("lih2TK06FLsu5HQ32PR6XzCsmg0GVPrL2seXkQVprx5FhRzNK8ArtT7u42RhqegQ")
+                .and()
+                .body(json)
+                .when()
+                .post("/api/v1/courier")
+                .then().statusCode(400);
     }
 }

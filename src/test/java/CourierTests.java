@@ -1,12 +1,10 @@
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
 
-public class СourierTest {
+public class CourierTests {
     // аннотация BeforeEach показывает, что метод будет выполняться перед каждым тестовым методом
     @BeforeEach
     public void setUp() {
@@ -15,11 +13,23 @@ public class СourierTest {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
     }
 
-    // создаём метод автотеста
-    @Test
-    public void getMyInfoStatusCode() {
-        String json = "{\"login\": \"ninja\",\"password\": \"1234\",\"firstName\": \"saske\"}";
-        Response response =
+    @Test //курьера можно создать
+    public void createCourier() {
+        String json = "{\"login\": \"nini8\",\"password\": \"12345\",\"firstName\": \"ninini\"}";
+                // метод given() помогает сформировать запрос
+        given()
+                .header("Content-type", "application/json")
+                // указываем протокол и данные авторизации
+                .auth().oauth2("lih2TK06FLsu5HQ32PR6XzCsmg0GVPrL2seXkQVprx5FhRzNK8ArtT7u42RhqegQ")
+                .and()
+                .body(json)
+                .when()
+                .post("/api/v1/courier")
+                .then().statusCode(201);
+    }
+    @Test //нельзя создать двух одинаковых курьеров c одним логином
+    public void createCourierOld() {
+        String json = "{\"login\": \"nini8\",\"password\": \"12345\",\"firstName\": \"ninini\"}";
         // метод given() помогает сформировать запрос
         given()
                 .header("Content-type", "application/json")
@@ -28,9 +38,7 @@ public class СourierTest {
                 .and()
                 .body(json)
                 .when()
-                .post("/api/v1/courier");
-        response.then().assertThat().body("ok: true", notNullValue())
-                .and()
-                .statusCode(201);
+                .post("/api/v1/courier")
+                .then().statusCode(409);
     }
 }

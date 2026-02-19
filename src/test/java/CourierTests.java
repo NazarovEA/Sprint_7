@@ -87,7 +87,7 @@ public class CourierTests {
     }
 
 
-    @Test //чтобы создать курьера, нужно передать в ручку все обязательные поля.Передаем без логина и пароляц
+    @Test //чтобы создать курьера, нужно передать в ручку все обязательные поля.Передаем без логина и пароля
     public void createCourierNotLoginAndPassword() {
         String json = "{\"firstName\": \"ninini\"}";
         Response response =

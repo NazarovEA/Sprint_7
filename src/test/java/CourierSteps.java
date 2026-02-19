@@ -3,7 +3,7 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
 public class CourierSteps {
-   // @Step("Создание курьера")
+ //   @Step("Создание курьера")
     public static Response createCourierStep(Object body) {
 
         return given()
@@ -16,4 +16,4 @@ public class CourierSteps {
                         .when()
                         .post("/api/v1/courier");
     }
-}
+    }

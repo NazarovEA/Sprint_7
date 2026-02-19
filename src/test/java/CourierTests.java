@@ -45,7 +45,6 @@ public class CourierTests {
                 .assertThat().body("ok", notNullValue())
                 .and()
                 .statusCode(201);
-        System.out.println(response.body().asString());
     }
 
     @Test //нельзя создать двух одинаковых курьеров c одним логином

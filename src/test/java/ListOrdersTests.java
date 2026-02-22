@@ -7,16 +7,12 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class ListOrdersTests {
-
-    // аннотация BeforeEach показывает, что метод будет выполняться перед каждым тестовым методом
     @BeforeEach
     public void setUp() {
-        // повторяющуюся для разных ручек часть URL лучше записать в переменную в методе Before
-        // если в классе будет несколько тестов, указывать её придётся только один раз
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
     }
 
-    @Test //успешное список заказов 200
+    @Test
     public void successRE() {
         Response response =
                 (Response) given()
@@ -24,6 +20,5 @@ public class ListOrdersTests {
                         .get("/api/v1/orders");
         response.then().assertThat().body("orders", notNullValue())
                         .statusCode(200);
-        System.out.println(response.body().asString());
     }
 }
